@@ -3,6 +3,7 @@ package com.group7.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.group7.entity.User;
+import com.group7.service.AccountService;
 import com.group7.service.UserService;
 import com.group7.util.ShowApiRequest;
 import com.group7.util.other.MD5;
@@ -30,6 +31,9 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
     /**
      * 注册方法
      * @param user
@@ -49,6 +53,13 @@ public class RegisterController {
         int registerUserinformationid = userService.registerUserinformationid(user.getId());
         //向useraccount表插入用户账户accountid和userinformationid生成默认信息
         userService.registerAccountInfo(registerUserinformationid);
+
+        Map sysMsgMap = new HashMap();
+        sysMsgMap.put("messagetype","消息");
+        sysMsgMap.put("messageContent","尊敬的客户，您好，欢迎您使用中兴财富金融平台！您的支付密码初始为：888888，请您及时修改密码，谨防上当受骗！");
+        sysMsgMap.put("userid",user.getId());
+        //审核通过给用户发送系统消息
+        int i1 = accountService.addSysMsg(sysMsgMap);
         Map<String,String> map = new HashMap<>();
         if(i>0){
             map.put("msg","success");
@@ -57,6 +68,7 @@ public class RegisterController {
         }
         return map;
     }
+
 
     /**
      * 用户名验重

@@ -22,11 +22,12 @@ public class getInfoByIdCard {
     public Map<String,Object> getIdCard(String idCardNum){
         System.out.println(idCardNum+"进入到了工具中");
         String s = (new ShowApiRequest("http://route.showapi.com/25-3", "76850", "3ae9b0a4bcb346dabeca64447a7406f4"))
-                .addTextPara("id", "410522199705304710")
+                .addTextPara("id", idCardNum)
                 .post();
         JSONObject jsStr = JSONObject.parseObject(s);
         JSONObject showapi_res_body=jsStr.getJSONObject("showapi_res_body");
         JSONObject retData = showapi_res_body.getJSONObject("retData");
+
         String address = retData.getString("address");
         System.out.println(address+"工具类中的地址");
         String sex = retData.getString("sex");
@@ -35,10 +36,10 @@ public class getInfoByIdCard {
         infoMap.put("address",address);
         infoMap.put("birthday",birthday);
         if(sex.equals("M")){
-            infoMap.put("sex",1);
+            infoMap.put("sex","男");
         }
         if(sex.equals("F")){
-            infoMap.put("sex",2);
+            infoMap.put("sex","女");
         }
         return infoMap;
     }

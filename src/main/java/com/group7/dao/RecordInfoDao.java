@@ -159,6 +159,34 @@ public interface RecordInfoDao {
      */
     @Select("select count(*) from tb_message where messagestate=1 and userid=#{userid}")
     int getUnreadCount(int userid);
+
+    /**
+     * 贷款记录列表
+     * @param map
+     * @return
+     */
+    @Select({"<script>"
+            +"select * from "
+            +"(select rownum rn, t.* from "
+            +"(select b.loanstypename,a.time,a.loansmoney,a.loansstate,a.loansid,nvl((select w.auditstate from tb_refund w where w.loansid = a.loansid ),0) as auditstate  from tb_loans a  "
+            +"join tb_loanstype b on a.loansid = b.loansid "
+            +"where a.userId = #{userid} and a.loansId in (select loansId from tb_loans where loansstate = #{loansstate}) )  t "
+            +"where rownum &lt; #{end} ) a "
+            +"where a.rn &gt; #{start} "
+            +"</script>"})
+    List<Map> loansList(Map map);
+
+    /**
+     * 贷款记录列表分页总数量
+     * @param map
+     * @return
+     */
+    @Select({"<script>"
+            +"select count(1) from tb_loans a  "
+            +"join tb_loanstype b on a.loansid = b.loansid "
+            +"where userId = #{userid} and a.loansId in (select loansId from tb_loans where loansstate = #{loansstate})"
+            +"</script>"})
+    int loansListCount(Map map);
 }
 
 

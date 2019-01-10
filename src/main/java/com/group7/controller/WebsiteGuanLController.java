@@ -21,7 +21,6 @@ public class WebsiteGuanLController {
     //引入服务层
     @Autowired
     private WebsiteGuanLiService websiteGuanLiService;
-
     /**
      * 公告信息列表
      * @param map
@@ -30,11 +29,16 @@ public class WebsiteGuanLController {
     @ResponseBody
     @RequestMapping("/getNoticeListMap")
     public Object getNoticeListMap(@RequestBody Map map){
+        List<Map> ListMap = websiteGuanLiService.getnoticeGuanLi(map);
+        for (Map map1:ListMap) {
+            map1.put("TIME",map1.get("TIME").toString().substring(0,10));
+        }
         Map maps = new HashMap();
-        maps.put("data", websiteGuanLiService.getnoticeGuanLi(map));
+        maps.put("data", ListMap);
         maps.put("total", websiteGuanLiService.getnoticeGuanLiCount(map));
         return maps;
     }
+
 
     /**
      * 添加

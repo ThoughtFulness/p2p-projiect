@@ -104,4 +104,17 @@ public interface RecordInfoService {
      * @return
      */
     int getUnreadCount(int userid);
+    /**
+     * 贷款记录
+     * @param map
+     * @return
+     */
+    List<Map> loansList(Map map);
+
+    /**
+     * 贷款记录计数
+     * @param map
+     * @return
+     */
+    int loansListCount(Map map);
 }

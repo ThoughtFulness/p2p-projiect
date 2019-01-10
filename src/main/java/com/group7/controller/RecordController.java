@@ -175,5 +175,37 @@ public class RecordController {
         }
         return tempMap;
     }
+
+    /**
+     * 贷款记录信息
+     * @param map
+     * @return
+     */
+    @RequestMapping("/loansList")
+    @ResponseBody
+    public Map loansList(@RequestBody Map map){
+        //System.out.println("-------------------------------------");
+        //System.out.println(map+".......");
+        Object userSession = session.getAttribute("userSession");
+        String userName = userSession+"";
+        int id = recordInfoService.getId(userName);
+        //System.out.println("用户的id为："+id);
+        map.put("userid",id);
+        Map rmap=new HashMap();
+        //System.out.println(recordInfoService.loansListCount(map));
+        rmap.put("data",recordInfoService.loansList(map));
+        rmap.put("total",recordInfoService.loansListCount(map));
+        //System.out.println(rmap);
+        return rmap;
+    }
+
+    /**
+     * 跳转的贷款记录
+     * @return
+     */
+    @RequestMapping("/toLoansList")
+    public String tojinnangGuanLi(){
+        return "yirenbaopage/个人中心-贷款记录";
+    }
 }
 

@@ -89,4 +89,15 @@ public class RecordInfoServiceImpl implements RecordInfoService {
     public int getUnreadCount(int userid) {
         return recordInfoDao.getUnreadCount(userid);
     }
+
+    @Override
+    public List<Map> loansList(Map map) {
+        System.out.println(map);
+        return recordInfoDao.loansList(map);
+    }
+
+    @Override
+    public int loansListCount(Map map) {
+        return recordInfoDao.loansListCount(map);
+    }
 }
