@@ -11,7 +11,7 @@
     </select>
     <!--查询是否该账户已经贷款-->
     <select id="selectloans" resultType="map">
-      select * from tb_loans where userid=(select id from tb_user where username=#{username}) and loansstate in(1,2,3,4,5,6,7,10,12)
+      select * from tb_loans where userid=(select id from tb_user where username=#{username}) and loansstate in(1,2,3,4,5,6,10,12)
     </select>
     <!--房屋抵押贷款-->
     <insert id="applyForLoad">
@@ -32,5 +32,11 @@
     <insert id="carLoans">
         insert into tb_loanstype (loanstype,loansid,loanstypename,carinformation,appraisalreport,globalvalue) values
         (#{type},#{loansid},'车辆抵押贷',#{carinfo},#{appraisalreport},#{globalvalue}*10000)
+    </insert>
+
+    <!--贷款类型是信用的存到数据库中-->
+    <insert id="creditLoans">
+        insert into tb_loanstype (loanstype,loansid,loanstypename) values
+        (#{type},#{loansid},'信用贷款')
     </insert>
 </mapper>

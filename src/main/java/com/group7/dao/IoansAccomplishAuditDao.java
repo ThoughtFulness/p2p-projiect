@@ -54,7 +54,7 @@ public interface IoansAccomplishAuditDao {
     int getPageCount(Map map);
 
     /**
-     * 查询 所有满标贷款信息  进行审核
+     * 查询 所有流标贷款信息  进行审核
      * @param map
      * @return
      */
@@ -76,7 +76,7 @@ public interface IoansAccomplishAuditDao {
     List<Map> getFailureLoans(Map map);
 
     /**
-     * 查询 所有满标贷款信息 条数
+     * 查询 所有流标贷款信息 条数
      * @param map
      * @return
      */

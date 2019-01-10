@@ -98,8 +98,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public int withdraw(double withdraw, double costMoney, int userinformationid) {
-        return accountInfoDao.withdraw(withdraw, costMoney, userinformationid);
+    public int withdraw(double withdraw, int userinformationid) {
+        return accountInfoDao.withdraw(withdraw, userinformationid);
     }
 
     @Override

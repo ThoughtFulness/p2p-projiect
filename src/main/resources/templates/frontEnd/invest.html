@@ -315,7 +315,7 @@
 
                                         str += "<div class='product_list mt20'>" +
                                             "<div class='prolist_one prolist_one_bl01 mt20'>" +
-                                            "<h2 class='prolist_one_tit'><span>" +LOANSTYPE+"</span>" + data.inves[i].USERNAME + "</h2>" +
+                                            "<h2 class='prolist_one_tit'><span>" +LOANSTYPE+"</span>" + data.inves[i].USERNAME.slice(0,1)+"先生"+"发起的"+LOANSTYPE+"贷款" + "</h2>" +
                                             "<ul class='prolist_one_ul clearfix'>" +
                                             "<li>年华收益：<strong>" + data.inves[i].LOANSINTERESTRATE + '%' + "</strong><br>" +
                                             " 还款方式：" + data.inves[i].REFUNDWAY + "</li>" +

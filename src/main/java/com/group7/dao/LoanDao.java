@@ -52,7 +52,7 @@ public interface LoanDao {
      * @param map
      * @return
      */
-    /*int creditLoans(Map map);*/
+    int creditLoans(Map map);
 
     /**
      * 查询出还款逾期的信息

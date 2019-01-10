@@ -75,6 +75,8 @@ public class LoanController {
             loanService.houseLoans(map);
         }else if(map.get("type").equals("2")){
             loanService.carLoans(map);
+        }else{
+            loanService.creditLoans(map);
         }
         return i;
     }

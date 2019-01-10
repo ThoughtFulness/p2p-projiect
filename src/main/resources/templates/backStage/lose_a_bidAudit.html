@@ -319,7 +319,7 @@
                     'loansType': this.searchForm.loansType
                 };
                 //alert(JSON.stringify(searchForm));
-                axios.post('/p2p/IoansAccomplishAudit', searchForm).then(function (response) {
+                axios.post('/p2p/getFailureLoans', searchForm).then(function (response) {
                     _self.total = response.data.total;
                     _self.tableData = response.data.page;
                 });

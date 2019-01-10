@@ -476,7 +476,7 @@
                     'bohui': this.editForm.REASON    //驳回理由
                 };
                 axios.post('/p2p/loanReview', editForm).then(function (response) {
-                    alert(response.data)
+                    //alert(response.data)
                     // sweetAlert("操作成功！","贷款已经驳回！", "success");
                     if(response.data==0){
                         sweetAlert("操作成功！","贷款已经驳回！", "success");

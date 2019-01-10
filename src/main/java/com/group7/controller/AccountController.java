@@ -476,7 +476,7 @@ public class AccountController {
             Object o = tempAccount.get("USERINFORMATIONID");
             //将userinformationid从Object转换为integer类型
             Integer userinformationid = Integer.valueOf(o + "");
-            int i = accountService.withdraw(actualMoney, costMoney, userinformationid);
+            int i = accountService.withdraw(actualMoney,userinformationid);
             //new一个记录表的map
             Map recordMap = new HashMap();
             //根据用户名获取用户id

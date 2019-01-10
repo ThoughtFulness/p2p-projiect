@@ -58,11 +58,11 @@
 </div>
 <div class="zxcf_menu_wper">
   <div class="zxcf_menu px1000">
-    <a href="toIndex" class="zm_cura">首页</a>
+    <a href="toIndex" >首页</a>
     <a href="toInvest">我要投资</a>
     <a href="toBorrow">我要借款</a>
-    <a href="#">实时财务</a>
-    <a href="toGeRenZhongXinShouYe">账户信息</a>
+    <a href="toSSCW">实时财务</a>
+    <a href="toGeRenZhongXinShouYe" class="zm_cura">账户信息</a>
     <a href="#" style="margin-right:0;">关于我们</a>
   </div>
 </div>
@@ -156,25 +156,25 @@
 				// var balance=Number("0.0");
                 //可用金额
                 var balance =document.getElementById("form:blance").innerText;
-				//提现费用
+                //提现费用
                 var costMoney=document.getElementById("form:fee").innerText;
-				//提现金额小于余额
-				var legalFlag=(costMoney+actualMoney-balance).toFixed(4)<=0;
-				console.log(legalFlag);
-				if(!legalFlag)
-				{
-					$(actualMessage).text("余额不足");
-					$(actualMessage).show();
-					return false;
-				}
-				else
-				{
-					$(actualMessage).hide();
-				}
-				return true;
-			}
-			
-			function amount(th){
+                //提现金额小于可用金额
+                var legalFlag=(actualMoney-balance).toFixed(4)<=0;
+                if(!legalFlag)
+                {
+                    $(actualMessage).text("余额不足");
+                    $(actualMessage).show();
+                    return false;
+                }
+                else
+                {
+                    $(actualMessage).hide();
+                }
+                return true;
+            }
+
+
+        function amount(th){
 			    var regStrs = [
 			        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
 			        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点

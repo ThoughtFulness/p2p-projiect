@@ -87,7 +87,7 @@ public interface LoanAuditDao {
 	@Insert("<script>"
 			+"insert into tb_message(messageid,messagecontent,messagestate,sendtime,userid,messagetype)"
 			+" values(seq_tb_message_id.nextval,'招标审核已经通过,正在招标中','0',sysdate,"
-			+"(select userid from tb_loans where LOANSID=#{ls}),'招标审核通过')"
+			+"(select userid from tb_loans where LOANSID=#{ls}),'招审')"
 			+"</script>")
 	int passReason(@Param("ls") Integer LOANSID);
 
@@ -109,7 +109,7 @@ public interface LoanAuditDao {
 	@Insert("<script>"
 			+"insert into tb_message(messageid,messagecontent,messagestate,sendtime,userid,messagetype)"
 			+" values(seq_tb_message_id.nextval,'招标审核被驳回,请参考驳回理由认真修改','0',sysdate,"
-			+"(select userid from tb_loans where LOANSID=#{ls}),'招标审核驳回')"
+			+"(select userid from tb_loans where LOANSID=#{ls}),'招审')"
 			+"</script>")
 	int rejectReson(@Param("ls") Integer LOANSID);
 

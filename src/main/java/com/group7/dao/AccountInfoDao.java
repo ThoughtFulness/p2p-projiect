@@ -123,7 +123,7 @@ public interface AccountInfoDao {
      * @param userinformationid
      * @return
      */
-    int withdraw(double withdraw,double costMoney,int userinformationid);
+    int withdraw(double withdraw,int userinformationid);
 
     /**
      * 查询用户可用余额

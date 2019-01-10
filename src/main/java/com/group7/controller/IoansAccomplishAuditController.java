@@ -77,9 +77,9 @@ public class IoansAccomplishAuditController {
     @ResponseBody
     @RequestMapping("/InvestmentRecord")
     public Object InvestmentRecord(@RequestBody Map map){
-        //System.out.println(map);
+        System.out.println(map);
         List<Map> maps = ioansService.InvestmentRecord(map);
-        //System.out.println(maps);
+        System.out.println(maps);
         return maps;
     }
 

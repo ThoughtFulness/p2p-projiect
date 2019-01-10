@@ -78,7 +78,7 @@
 
     <!--银行卡提现-->
     <update id="withdraw">
-        update tb_useraccount set accounmoney=accounmoney-#{arg0}-#{arg1},availmoney=availmoney-#{arg0}-#{arg1} where userinformationid = #{arg2}
+        update tb_useraccount set accounmoney=accounmoney-#{arg0},availmoney=availmoney-#{arg0} where userinformationid = #{arg1}
     </update>
 
     <!--查询用户可用余额-->

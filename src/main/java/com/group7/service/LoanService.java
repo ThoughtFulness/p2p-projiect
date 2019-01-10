@@ -49,8 +49,8 @@ public interface LoanService {
      * 申请贷款，把信用贷款类型的信息存到数据库
      * @param map
      * @return
-     *//*
-    int creditLoans(Map map);*/
+     */
+    int creditLoans(Map map);
 
     /**
      * 查询出还款逾期的信息

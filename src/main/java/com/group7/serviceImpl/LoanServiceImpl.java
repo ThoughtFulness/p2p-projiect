@@ -46,10 +46,10 @@ public class LoanServiceImpl implements LoanService {
         return loanDao.carLoans(map);
     }
 
-    /*@Override
+    @Override
     public int creditLoans(Map map) {
         return loanDao.creditLoans(map);
-    }*/
+    }
 
     @Override
     public List<Map> getOverdueInfo(Map map) {
