@@ -55,7 +55,7 @@
       <span>|</span>
       <a href="UserExit">切换用户</a>
       <span>|</span>
-      <a href="toproblem">常见问题</a>
+      <a href="/p2p/toproblem">常见问题</a>
     </div>
   </div>
 </div>
@@ -332,7 +332,13 @@
                           //重置未读消息数量
                           this.messageNum=0;
                           this.messagestate=2;
-                          this.loadingData(2);//重新加载数据
+                            this.button1='primary';
+                            this.button2='';
+                            this.button3='';
+                            this.active1='';
+                            this.messagestate='';
+                            this.loadingData();
+                          //this.loadingData(2);//重新加载数据
                         }
                     }
                 }

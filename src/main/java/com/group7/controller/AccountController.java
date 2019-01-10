@@ -456,42 +456,52 @@ public class AccountController {
     @RequestMapping("/withdraw")
     @ResponseBody
     public Map<String,String> withdraw(@RequestParam double actualMoney,double costMoney){
+        //new一个msgMap当回调信息
+        Map msgMap = new HashMap();
         Object userSession = session.getAttribute("userSession");
         //获取用户名
         String userName = userSession+"";
-        //从session中获取用户的账户信息 是一个map
-        Object accountList = session.getAttribute("accountList");
-        //将object转回成map
-        Map tempAccount = (Map) session.getAttribute("accountList");
-        //获取userinformationid
-        Object o = tempAccount.get("USERINFORMATIONID");
-        //将userinformationid从Object转换为integer类型
-        Integer userinformationid = Integer.valueOf(o+"");
-        int i = accountService.withdraw(actualMoney,costMoney,userinformationid);
-        //new一个记录表的map
-        Map recordMap = new HashMap();
-        //根据用户名获取用户id
-        int id = accountService.getIdByUserName(userName);
-        //用户id
-        recordMap.put("userid",id);
-        //交易金额=提现费用+手续费
-        double watercoursemoney = actualMoney+costMoney;
-        //交易金额放入记录表的map中
-        recordMap.put("watercoursemoney",watercoursemoney);
-        //余额 根据userinformationid查询余额
-        double availMoney = accountService.getAvailMoney(userinformationid);
-        recordMap.put("balance",availMoney);
-        accountService.withdrawRecord(recordMap);
-        Map msgMap = new HashMap();
-        if(i>0){
-            //提现成功后将手续费添加到资金池
-            accountService.addFeeToPool(costMoney);
-            msgMap.put("msg","success");
-        }else{
-            msgMap.put("msg","fail");
+        //查询用户的银行卡号
+        Map accountSet = accountService.accountSet(userName);
+        //判断查询的accountSet中是否有银行卡号信息
+        boolean contains = accountSet.containsKey("BANKCARDNUMBERS");
+        if(!contains) {
+            msgMap.put("msg","noBand");
+        }else {
+            //从session中获取用户的账户信息 是一个map
+            Object accountList = session.getAttribute("accountList");
+            //将object转回成map
+            Map tempAccount = (Map) session.getAttribute("accountList");
+            //获取userinformationid
+            Object o = tempAccount.get("USERINFORMATIONID");
+            //将userinformationid从Object转换为integer类型
+            Integer userinformationid = Integer.valueOf(o + "");
+            int i = accountService.withdraw(actualMoney, costMoney, userinformationid);
+            //new一个记录表的map
+            Map recordMap = new HashMap();
+            //根据用户名获取用户id
+            int id = accountService.getIdByUserName(userName);
+            //用户id
+            recordMap.put("userid", id);
+            //交易金额=提现费用+手续费
+            double watercoursemoney = actualMoney + costMoney;
+            //交易金额放入记录表的map中
+            recordMap.put("watercoursemoney", watercoursemoney);
+            //余额 根据userinformationid查询余额
+            double availMoney = accountService.getAvailMoney(userinformationid);
+            recordMap.put("balance", availMoney);
+            accountService.withdrawRecord(recordMap);
+            if (i > 0) {
+                //提现成功后将手续费添加到资金池
+                accountService.addFeeToPool(costMoney);
+                msgMap.put("msg", "success");
+            } else {
+                msgMap.put("msg", "fail");
+            }
         }
         return msgMap;
     }
+
 
     /**
      * 提现页面

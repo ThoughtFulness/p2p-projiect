@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <!-- <link rel="stylesheet/less" type="text/css" href="css/style.less" /> -->
   <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-  <script type="text/javascript" src="js/all.js"></script>
+  <!--<script type="text/javascript" src="js/all.js"></script>-->
   <script type="text/javascript" src="js/jquery.form.js"></script>
   <script type="text/javascript" src="js/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" href="js/dist/sweetalert.css">
@@ -38,7 +38,7 @@
         <span>|</span>
         <a href="UserExit">切换用户</a>
         <span>|</span>
-        <a href="toproblem">常见问题</a>
+        <a href="/p2p/toproblem">常见问题</a>
     </div>
   </div>
 </div>
@@ -217,6 +217,9 @@
             </ul>
           </div>
         </form>
+        <div class="info-tips">
+          <span style="color: red;">注意：实际到账金额将直接提现到您在平台已绑定的银行卡。如未绑定，请先<a href="toGRZXZhangHao">绑定</a>后再进行操作！</span>
+        </div>
         <div class="deposit-tip"> 温馨提示：<br>
           1、用户需在完成身份认证、开通丰付托管账户并绑定银行卡后，方可申请提现；<br>
           2、请务必在提现时使用持卡人与身份认证一致的银行卡号，且确保填写信息准确无误；<br>
@@ -242,30 +245,40 @@
         });
     </script>
     <script type="text/javascript">
-            $("#sendMoney").click(function () {
-                if(checkActualMoney()) {
-                    $("#form").ajaxSubmit(function (message) {
-                        //对于表单提交成功后处理，message为提交页面/p2p/fileUpload的返回内容
-                        console.log(message.msg + "回调ajax的form表单");
-                        if (message.msg == "success") {
-                            sweetAlert({
-                                title: "恭喜您",
-                                text: "提现成功",
-                                timer: 900,
-                                type: "success"
-                            }, function () {
-                                location.href = "/p2p/toGRZXTiXian1";
-                            });
-                        } else {
-                            alert("当前提现人数过多，请稍后再试!");
-                        }
-                    });
-                }
-            });
+        $("#sendMoney").click(function () {
+            if(checkActualMoney()) {
+                $("#form").ajaxSubmit(function (message) {
+                    //对于表单提交成功后处理，message为提交页面/p2p/fileUpload的返回内容
+                    console.log(message.msg + "回调ajax的form表单");
+                    if (message.msg == "success") {
+                        sweetAlert({
+                            title: "恭喜您",
+                            text: "提现成功",
+                            timer: 900,
+                            type: "success"
+                        }, function () {
+                            location.href = "/p2p/toGRZXTiXian1";
+                        });
+                    } else if(message.msg == "noBand") {
+                        sweetAlert({
+                            title: "很抱歉",
+                            text: "未绑定银行卡",
+                            timer: 900,
+                            type: "error"
+                        }, function () {
+                            location.href = "/p2p/toGRZXZhangHao";
+                        });
+                    } else {
+                        alert("当前提现人数过多，请稍后再试!");
+                    }
+                });
+            }
+        });
 
 
 
-			$("#form\\:actualMoney").focus(
+
+        $("#form\\:actualMoney").focus(
 					   function(){
 						   	$(this).css({"font-size":"24px","font-weight":"bold","font-family":"Arial","border":"1px solid #0caffe"});
 						   if($("#form\\:actualMoney").val() == 100) {

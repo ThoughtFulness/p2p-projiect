@@ -59,23 +59,23 @@ public class JInNangServiceImpl implements JinNangService {
     }
 
     @Override
-    public List<Map> getTouZiCWFenXi(int id) {
-        return jinNangDao.getTouZiCWFenXi(id);
+    public List<Map> getTouZiCWFenXi(Map mapType) {
+        return jinNangDao.getTouZiCWFenXi(mapType);
     }
 
     @Override
-    public List<Map> getJieKuanCWFenXi(int id) {
-        return jinNangDao.getJieKuanCWFenXi(id);
+    public List<Map> getJieKuanCWFenXi(Map mapType) {
+        return jinNangDao.getJieKuanCWFenXi(mapType);
     }
 
     @Override
-    public List<Map> getTouZiLieXingFenXi(int id) {
-        return jinNangDao.getTouZiLieXingFenXi(id);
+    public List<Map> getTouZiLieXingFenXi(Map mapType) {
+        return jinNangDao.getTouZiLieXingFenXi(mapType);
     }
 
     @Override
-    public List<Map> getJieKuanLieXingFenXi(int id) {
-        return jinNangDao.getJieKuanLieXingFenXi(id);
+    public List<Map> getJieKuanLieXingFenXi(Map mapType) {
+        return jinNangDao.getJieKuanLieXingFenXi(mapType);
     }
 
     @Override

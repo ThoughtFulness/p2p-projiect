@@ -122,6 +122,20 @@ public class InvestController {
         return maps;
     }
 
+    /**
+     * 查询贷款 投资信息
+     * @param loansId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/repaymentInformation")
+    public Object repaymentInformation(Integer loansId){
+        System.out.println(loansId);
+        List<Map> maps = investService.repaymentInformation(loansId);
+        System.out.println(maps);
+        return maps;
+    }
+
 
 
 

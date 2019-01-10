@@ -27,11 +27,11 @@
 			<a href="#"><img src="11112/images/zxcf_qq.png" alt=""></a>
 		</div>
 		<div class="zxcf_top_r fr">
-			<a href="UserExit" class="curspan">注销登陆</a>
+			<a href="/p2p/logout" class="curspan">立即登录</a>
 			<span>|</span>
-			<a href="UserExit">切换用户</a>
+			<a href="/p2p/logout">切换用户</a>
 			<span>|</span>
-			<a href="toproblem">常见问题</a>
+			<a href="#">常见问题</a>
 		</div>
 	</div>
 </div>
@@ -39,25 +39,16 @@
 <div class="zxcf_nav_wper">
 	<div class="zxcf_nav clearfix px1000">
 		<div class="zxcf_nav_l fl"><img src="images/zxcf_logo.png" alt=""></div>
-		<div class="zxcf_nav_r fr">
-			<img src="11112/images/zxcf_perinfo.png" alt="">
-			<span>我的账户
-		 	<img src="11112/images/zxcf_icon01.png" alt=""></span>
-			<ul class="zxcf_perinfo" style="display:none;">
-				<li><a href="#">111</a></li>
-				<li><a href="#">111</a></li>
-				<li><a href="#">111</a></li>
-			</ul>
-		</div>
+
 	</div>
 </div>
 <div class="zxcf_menu_wper">
 	<div class="zxcf_menu px1000">
-		<a href="toIndex" class="zm_cura">首页</a>
-		<a href="toInvest">我要投资</a>
+		<a href="toIndex">首页</a>
+		<a href="toInvest" class="zm_cura">我要投资</a>
 		<a href="toBorrow">我要借款</a>
-		<a href="#">实时财务</a>
-		<a href="toNoticelist">账户信息</a>
+		<a href="toSSCW">实时财务</a>
+		<a href="toGeRenZhongXinShouYe">账户信息</a>
 		<a href="#" style="margin-right:0;">关于我们</a>
 	</div>
 </div>
@@ -259,76 +250,27 @@
 						</div>
 						<!-- end fk -->
 						<div class="det_proone_l" style="display:none;">
-							<h2 class="det_proone_tit">放款通知</h2>
-							<p class="dhgl_p1"><img src="" alt="">融资成功,企业正在还款</p>
+							<h2 class="det_proone_tit">贷款通知</h2>
+							<p class="dhgl_p1" id="rz">融资成功,企业正在还款</p>
 							<h2 class="det_proone_tit">还款概况</h2>
 							<ul  class="dhgl_ul">
 								<li>
-									<img src="" alt="">
-									<span>应付利息</span>
-									<span>123213.4元（12期）</span>
+									<span>应还金额</span>
+									<span id="yhje"></span>
 								</li>
 								<li>
-									&nbsp;<img src="" alt="">
-									<span>应付利息</span>
-									<span>123213.4元（12期）</span>
+									<span>应还利息</span>
+									<span id="yhlx"></span>
 								</li>
-								<li>
-									&nbsp;<img src="" alt="">
-									<span>应付利息</span>
-									<span>123213.4元（12期）</span>
-								</li>
-								<li>
-									<img src="" alt="">
-									<span>应付利息</span>
-									<span>123213.4元（12期）</span>
-								</li>
-
 							</ul>
 							<h2 class="det_proone_tit">还款明细</h2>
 							<div class="pl20 pr20 pt20">
-								<table class="dhgl_table">
+								<table class="dhgl_table" id="dhgl_table">
 									<tr style="border-bottom:none;">
 										<th>还款日期</th>
 										<th>还款类型</th>
 										<th>还款金额</th>
 										<th>还款状态</th>
-									</tr>
-									<tr>
-										<td>2015-11</td>
-										<td>利息</td>
-										<td>82333.23元</td>
-										<td>未到期</td>
-									</tr>
-									<tr>
-										<td>2015-11</td>
-										<td>利息</td>
-										<td>82333.23元</td>
-										<td>未到期</td>
-									</tr>
-									<tr>
-										<td>2015-11</td>
-										<td>利息</td>
-										<td>82333.23元</td>
-										<td>未到期</td>
-									</tr>
-									<tr>
-										<td>2015-11</td>
-										<td>利息</td>
-										<td>82333.23元</td>
-										<td>未到期</td>
-									</tr>
-									<tr>
-										<td>2015-11</td>
-										<td>利息</td>
-										<td>82333.23元</td>
-										<td>未到期</td>
-									</tr>
-									<tr>
-										<td>2015-11</td>
-										<td>利息</td>
-										<td>82333.23元</td>
-										<td>未到期</td>
 									</tr>
 								</table>
 							</div>
@@ -425,7 +367,7 @@
 			<ul class="fl clearfix">
 				<li><a href="#">联系我们</a></li>
 				<li><a href="#">我要融资</a></li>
-				<li><a href="problem.html">帮助中心</a></li>
+				<li><a href="#">帮助中心</a></li>
 				<li><a href="#">友情链接</a></li>
 				<li><a href="#">招贤纳士</a></li>
 				<li><a href="http://www.yinqiao.com/aboutus/scafina.html">收益计算器</a></li>
@@ -451,15 +393,18 @@
 <script>
 
     //layui监听
-   /* layui.use('layer', function(){
+   layui.use('layer', function(){
         var layer = layui.layer;
-    });*/
+    });
 
     $(function () {
 
         var userId = GetQueryString("userId");  //获取url  账户ID
         var loansId = GetQueryString("loansId");  // 贷款ID
         var username = localStorage.getItem("userInfo");	 //获取当前登陆人 账户名
+        if(username!=null&&username!=''){
+            $(".curspan").html("注销登录")
+		}
         //查询是否投资过  默认隐藏
         $(".one").hide();
         $(".two").hide();
@@ -628,7 +573,7 @@
             $("#shouyi").html($("#shouyi1").html());
         });
 
-
+		//投资记录
         $.ajax({
             type: "post",
             url: "/p2p/investmentInformation",
@@ -649,6 +594,33 @@
                     $("#TZJL").append(str);
                 }
                 $("#JL").html(i==''?0:i); //获取投资条数
+            }
+        })
+
+        //还款记录
+        $.ajax({
+            type: "post",
+            url: "/p2p/repaymentInformation",
+            dataType: "json",
+            data: {loansId:loansId},
+            success: function (data) {
+                var str = "";
+                if(data!=null&&data!=''){
+                    $("#rz").html("贷款已还款完成！");
+                    //alert(data[0].REFUNDDATE);
+                    str +="<tr>"+
+                        "<td>"+data[0].REFUNDDATE+"</td>"+
+                        "<td>"+'到期还本还息'+"</td>"+
+                        "<td>"+data[0].REFUNDMONEY+"</td>"+
+                        "<td>"+'还款完成'+"</td>"+
+                        "</tr>";
+                    $("#dhgl_table").append(str);
+                }else {
+                    str +="<tr>"+
+                        "<td colspan='4'>"+'暂无'+"</td>"+
+                        "</tr>";
+                    $("#dhgl_table").append(str);
+                }
             }
         })
 
@@ -718,20 +690,37 @@
 
                         }
 
-                        //判断是否满标
+                        //判断是否满标和是否是本人的贷款
                         if(data.TONAME==username){
                             $(".financing").hide();
                             $(".one").show();
                             $(".one").html("立即投资");
                             $(".one").css("background","gray");
+                            if(Number(data.LOANSMONEY) - Number(data.INVESTMENTAMOUNT)==0){
+                                $(".financing").hide();
+                                $(".one").show();
+                                $(".one").html("满标");
+                                $("#rz").html("已满标,贷款审核中！");
+                            }
                         }else if(Number(data.LOANSMONEY) - Number(data.INVESTMENTAMOUNT)==0){
                             $(".financing").hide();
                             $(".one").show();
                             $(".one").html("满标");
+                            $("#rz").html("已满标,贷款审核中！");  //贷款通知
+                        }
+                        //贷款管理 还款概况
+                        $("#yhje").html(data.LOANSMONEY+"元");
+                        //alert(data.LOANSMONEY)
+                        $("#yhlx").html(Math.floor(data.LOANSMONEY * data.REFUNDDEADLINE * (data.LOANSINTERESTRATE / 100) / 12 )+"元");
+                        //alert(Math.floor(data.LOANSMONEY * data.REFUNDDEADLINE * (data.LOANSINTERESTRATE / 100) / 12 ))
+
+                        //alert(data.LOANSSTATE)
+                        if(Number(data.LOANSSTATE)==5){
+                            $("#rz").html("贷款已成功,还款中！");
                         }
 
-
                     }
+
                 }
             }
         });

@@ -18,22 +18,22 @@ public class diagramServiceImpl implements diagramService {
     private diagramDao diagramdao;
 
     @Override
-    public List<Map> getDaikuan() {
-        return diagramdao.getDaikuan();
+    public List<Map> getDaikuan(Map map) {
+        return diagramdao.getDaikuan(map);
     }
 
     @Override
-    public List<Map> getHuankuan() {
-        return diagramdao.getHuankuan();
+    public List<Map> getHuankuan(Map map) {
+        return diagramdao.getHuankuan(map);
     }
 
     @Override
-    public List<Map> getChongChi() {
-        return diagramdao.getChongChi();
+    public List<Map> getChongChi(Map map) {
+        return diagramdao.getChongChi(map);
     }
 
     @Override
-    public List<Map> getTiXian() {
-        return diagramdao.getTiXian();
+    public List<Map> getTiXian(Map map) {
+        return diagramdao.getTiXian(map);
     }
 }

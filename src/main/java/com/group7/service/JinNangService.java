@@ -61,31 +61,31 @@ public interface JinNangService {
 
     /**
      * 获取投资财务分析
-     * @param id
+     * @param 
      * @return
      */
-    List<Map> getTouZiCWFenXi(int id);
+    List<Map> getTouZiCWFenXi(Map mapType);
 
     /**
      * 获取借款财务分析
-     * @param id
+     * @param
      * @return
      */
-    List<Map> getJieKuanCWFenXi(int id);
+    List<Map> getJieKuanCWFenXi(Map mapType);
 
     /**
      * 获取投资类型分析
-     * @param id
+     * @param
      * @return
      */
-    List<Map> getTouZiLieXingFenXi(int id);
+    List<Map> getTouZiLieXingFenXi(Map mapType);
 
     /**
      * 获取借款类型分析
-     * @param id
+     * @param
      * @return
      */
-    List<Map> getJieKuanLieXingFenXi(int id);
+    List<Map> getJieKuanLieXingFenXi(Map mapType);
 
     int deleteJinNang(Integer ID);
 

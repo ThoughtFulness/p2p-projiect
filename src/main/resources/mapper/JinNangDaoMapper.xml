@@ -34,22 +34,22 @@
     </select>
 
     <select id="getTouZiCWFenXi" resultType="map">
-           select sum(a.INVESTMENTMONEY) as money,TO_CHAR(b.month,'yyyy-mm') as yuefen from (select * from TB_INVESTMENT where userid=2 ) a right join  tb_yue b on
-            TO_CHAR(b.month,'yyyy-mm')=TO_CHAR(a.INVESTMENTDATE,'yyyy-mm')
-           group by TO_CHAR(b.month,'yyyy-mm') order by TO_CHAR(b.month,'yyyy-mm') desc
+           select sum(a.INVESTMENTMONEY) as money,TO_CHAR(b.month,'mm') as yuefen from (select * from TB_INVESTMENT where userid=${id} and TO_CHAR(INVESTMENTDATE,'yyyy')=${type} ) a right join  tb_yue b on
+            TO_CHAR(b.month,'mm')=TO_CHAR(a.INVESTMENTDATE,'mm')
+           group by TO_CHAR(b.month,'mm') order by TO_CHAR(b.month,'mm') desc
     </select>
 
     <select id="getJieKuanCWFenXi" resultType="map">
-             select sum(a.loansmoney) as money,TO_CHAR(b.month,'yyyy-mm') as yuefen from (select * from TB_LOANS where userid=2 ) a right join  tb_yue b on
-           TO_CHAR(b.month,'yyyy-mm')=TO_CHAR(a.begintime,'yyyy-mm')
-         group by TO_CHAR(b.month,'yyyy-mm') order by TO_CHAR(b.month,'yyyy-mm') desc
+             select sum(a.loansmoney) as money,TO_CHAR(b.month,'mm') as yuefen from (select * from TB_LOANS where userid=${id} and TO_CHAR(begintime,'yyyy')=${type}) a right join  tb_yue b on
+           TO_CHAR(b.month,'mm')=TO_CHAR(a.begintime,'mm')
+         group by TO_CHAR(b.month,'mm') order by TO_CHAR(b.month,'mm') desc
     </select>
 
     <select id="getTouZiLieXingFenXi" resultType="map">
-         select sum(loansmoney) as money ,loanstype from TB_LOANS where userid=2  group by loanstype
+         select sum(loansmoney) as money ,loanstype from TB_LOANS where userid=${id} and TO_CHAR(begintime,'yyyy')=${type}  group by loanstype
     </select>
 
     <select id="getJieKuanLieXingFenXi" resultType="map">
-         select sum(a.investmentmoney) as money,b.loanstype from  tb_investment a,tb_loans b where a.loansid=b.loansid and a.userid=2 group by b.loanstype
+         select sum(a.investmentmoney) as money,b.loanstype from  tb_investment a,tb_loans b where a.loansid=b.loansid and a.userid=${id} and TO_CHAR(INVESTMENTDATE,'yyyy')=${type} group by b.loanstype
     </select>
 </mapper>

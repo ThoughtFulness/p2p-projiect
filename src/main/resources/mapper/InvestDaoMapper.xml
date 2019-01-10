@@ -184,9 +184,12 @@
     <!--投资成功  添加 发送系统消息提示客户-->
     <insert id="message">
        insert into tb_message(messageid,messagecontent,messagestate,sendtime,userid,messagetype)
-               values(seq_tb_message_id.nextval,'尊敬的客户，您好,您的编号为'||(select investmentId from  tb_investment  a join tb_loans b on  a.loansid = b.loansid  where a.userid = (select id from tb_user where userName = #{userName}) and a.loansid = #{loansId} )||'的'||#{investmentMoney}||'元投资成功,投标金额划入冻结资金。如此贷款项目成功会提醒您,请耐心等待。如有疑问，请联系我们，我们一定为您解答',0,sysdate,( select id from tb_user where userName = #{userName} ),'投资')
+               values(seq_tb_message_id.nextval,'尊敬的客户，您好,您的编号为'||(select investmentId from  tb_investment  a join tb_loans b on  a.loansid = b.loansid  where a.userid = (select id from tb_user where userName = #{userName}) and a.loansid = #{loansId} )||'的'||#{investmentMoney}||'元投资成功,投标金额划入冻结资金。如此贷款项目成功会提醒您,请耐心等待。如有疑问，请联系我们，我们一定为您解答',1,sysdate,( select id from tb_user where userName = #{userName} ),'投资')
     </insert>
 
-
+    <!--查询贷款 投资信息-->
+    <select id="repaymentInformation" resultType="map">
+        select refundmoney,to_char(refunddate,'yyyy-mm-dd hh24:mi:ss') as refunddate,auditstate  from tb_refund where loansId = #{loansId}
+    </select>
 
 </mapper>

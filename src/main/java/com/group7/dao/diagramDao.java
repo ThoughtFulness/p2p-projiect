@@ -16,22 +16,23 @@ public interface diagramDao {
      * @return
      */
     @Select({"<script>"+
-            "   select sum(a.loansmoney) as money,to_char(b.month,'yyyy-mm') as yuefen from (select * from tb_loans ) a right join  tb_yue b on\n" +
-            " to_char(b.month,'yyyy-mm')=to_char(a.begintime,'yyyy-mm') \n" +
-            "  group by to_char(b.month,'yyyy-mm') order by to_char(b.month,'yyyy-mm') asc "+
+            " select sum(a.loansmoney) as money,to_char(b.month,'mm') as yuefen " +
+            "from (select * from tb_loans where TO_CHAR(begintime,'yyyy')=#{type}  ) " +
+            "a right join  tb_yue b on to_char(b.month,'mm')=to_char(a.begintime,'mm') " +
+            "group by to_char(b.month,'mm') order by to_char(b.month,'mm') asc"+
             "</script>"})
-    List<Map> getDaikuan();
+    List<Map> getDaikuan(Map map);
 
     /**
      * 获取12个月的还款信息
      * @return
      */
     @Select({"<script>"+
-            "   select sum(a.refundmoney) as money,to_char(b.month,'yyyy-mm') as yuefen from (select * from tb_refund ) a right join  tb_yue b on\n" +
-            " to_char(b.month,'yyyy-mm')=to_char(a.refunddate,'yyyy-mm') \n" +
-            "  group by to_char(b.month,'yyyy-mm') order by to_char(b.month,'yyyy-mm') asc "+
+            "   select sum(a.refundmoney) as money,to_char(b.month,'mm') as yuefen from (select * from tb_refund where to_char(refunddate,'yyyy')=#{type}) a right join  tb_yue b on\n" +
+            " to_char(b.month,'mm')=to_char(a.refunddate,'mm') \n" +
+            "  group by to_char(b.month,'mm') order by to_char(b.month,'mm') asc "+
             "</script>"})
-    List<Map> getHuankuan();
+    List<Map> getHuankuan(Map map);
 
     /**
      * 获取12个月充值信息
@@ -42,7 +43,7 @@ public interface diagramDao {
             " to_char(b.month,'yyyy-mm')=to_char(a.WATERCOURSETIME,'yyyy-mm') \n" +
             "  group by to_char(b.month,'yyyy-mm') order by to_char(b.month,'yyyy-mm') asc "+
             "</script>"})
-    List<Map> getChongChi();
+    List<Map> getChongChi(Map map);
 
 
     /**
@@ -54,6 +55,6 @@ public interface diagramDao {
             " to_char(b.month,'yyyy-mm')=to_char(a.WATERCOURSETIME,'yyyy-mm') \n" +
             "  group by to_char(b.month,'yyyy-mm') order by to_char(b.month,'yyyy-mm') asc "+
             "</script>"})
-    List<Map> getTiXian();
+    List<Map> getTiXian(Map map);
 
 }

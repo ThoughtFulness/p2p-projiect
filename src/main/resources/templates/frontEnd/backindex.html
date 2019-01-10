@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
   
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Now UI Dashboard by Creative Tim</title>
+    <title>数据统计</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -41,12 +41,20 @@
 
 
 <div class="content">
+
     <div style="width: 97%;  border-radius:20px;background-color: white;
         box-shadow: darkgrey 10px 10px 30px 5px ; margin-left: 25px;margin-bottom: 50px;position:absolute;top: 50px ">
 
-
-    <div id="main" style="width: 50%;height:600px; float: left"></div>
-        <div id="main2" style="width: 50%;height:600px;float: left"></div>
+        <center>
+            <div>
+                <select id="type" style="height: 40px;width: 100px;margin-top: 10px">
+                    <option value="2019">2019年</option>
+                    <option value="2018">2018年</option>
+                </select>
+            </div>
+        </center>
+    <div id="main" style="width: 50%;height:600px; float: left;margin-top: 50px"></div>
+        <div id="main2" style="width: 50%;height:600px;float: left;margin-top: 50px"></div>
 
 
 
@@ -56,95 +64,109 @@
 
 <script>
 
-    var daiKuan=[];
-    var huanKuan=[];
+    $(function () {
+        var caonima=$("#type").val();
+        echas(caonima)
+    })
 
-    $.ajax({
-        url: "getJieDaiXinxi",
-        type: "POST",
-        dataType: "json",
-        success: function (data) {
+    $("#type").change(function () {
+        var caonima=$("#type").val();
+        echas(caonima)
+    })
 
-            for(var i=0;i<data.daikuan.length;i++){
-                daiKuan.push(data.daikuan[i].MONEY)
-            }
-            for(var k=0;k<data.huankuan.length;k++){
-                huanKuan.push(data.huankuan[k].MONEY)
-            }
+   function echas(zhi) {
+       var daiKuan=[];
+       var huanKuan=[];
+       var type=zhi
+       $.ajax({
+           url: "getJieDaiXinxi",
+           type: "POST",
+           dataType: "json",
+           data: {type: type},
+           success: function (data) {
 
-            var myChart = echarts.init(document.getElementById('main'), 'macarons');
+               for(var i=0;i<data.daikuan.length;i++){
+                   daiKuan.push(data.daikuan[i].MONEY)
+               }
+               for(var k=0;k<data.huankuan.length;k++){
+                   huanKuan.push(data.huankuan[k].MONEY)
+               }
 
-            option = {
-                title: {
-                    text: '2018',
-                    subtext: ''
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data: ['放款', '回款']
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        dataView: {show: true, readOnly: false},
-                        magicType: {show: true, type: ['line', 'bar']},
-                        restore: {show: true},
-                        saveAsImage: {show: true}
-                    }
-                },
-                calculable: true,
-                xAxis: [
-                    {
-                        type: 'category',
-                        data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value'
-                    }
-                ],
-                series: [
-                    {
-                        name: '放款',
-                        type: 'bar',
-                        data: daiKuan,
-                        markPoint: {
-                            data: [
-                                {type: 'max', name: '最大值'},
-                                {type: 'min', name: '最小值'}
-                            ]
-                        },
-                        markLine: {
-                            data: [
-                                {type: 'average', name: '平均值'}
-                            ]
-                        }
-                    },
-                    {
-                        name: '回款',
-                        type: 'bar',
-                        data: huanKuan,
-                        markPoint: {
-                            data: [
-                                {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
-                                {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
-                            ]
-                        },
-                        markLine: {
-                            data: [
-                                {type: 'average', name: '平均值'}
-                            ]
-                        }
-                    }
-                ]
-            };
+               var myChart = echarts.init(document.getElementById('main'), 'macarons');
 
-            myChart.setOption(option);
-        }
-    });
+               option = {
+                   title: {
+                       text: type,
+                       subtext: ''
+                   },
+                   tooltip: {
+                       trigger: 'axis'
+                   },
+                   legend: {
+                       data: ['放款', '回款']
+                   },
+                   toolbox: {
+                       show: true,
+                       feature: {
+                           dataView: {show: true, readOnly: false},
+                           magicType: {show: true, type: ['line', 'bar']},
+                           restore: {show: true},
+                           saveAsImage: {show: true}
+                       }
+                   },
+                   calculable: true,
+                   xAxis: [
+                       {
+                           type: 'category',
+                           data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+                       }
+                   ],
+                   yAxis: [
+                       {
+                           type: 'value'
+                       }
+                   ],
+                   series: [
+                       {
+                           name: '放款',
+                           type: 'bar',
+                           data: daiKuan,
+                           markPoint: {
+                               data: [
+                                   {type: 'max', name: '最大值'},
+                                   {type: 'min', name: '最小值'}
+                               ]
+                           },
+                           markLine: {
+                               data: [
+                                   {type: 'average', name: '平均值'}
+                               ]
+                           }
+                       },
+                       {
+                           name: '回款',
+                           type: 'bar',
+                           data: huanKuan,
+                           markPoint: {
+                               data: [
+                                   {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183},
+                                   {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                               ]
+                           },
+                           markLine: {
+                               data: [
+                                   {type: 'average', name: '平均值'}
+                               ]
+                           }
+                       }
+                   ]
+               };
+
+               myChart.setOption(option);
+           }
+       });
+   }
+
 </script>
 
 

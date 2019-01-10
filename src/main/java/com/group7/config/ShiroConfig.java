@@ -45,11 +45,14 @@ public class ShiroConfig {
 		//未登录放开首页贷款信息
 		filterChainDefinitionMap.put("/indexInformation","anon");
 		filterChainDefinitionMap.put("/indexInformationDiYa","anon");
+		//未登录放开常见问题
+		filterChainDefinitionMap.put("/toproblem","anon");
 		//前台公告放开
 		filterChainDefinitionMap.put("/getNoteceListMap","anon");
 		filterChainDefinitionMap.put("/toNoticelist","anon");
 		//未登录放开贷款页信息
 		filterChainDefinitionMap.put("/toInvest", "anon");
+		filterChainDefinitionMap.put("/toBorrow", "anon");
 		filterChainDefinitionMap.put("/toDetail", "anon");
 		filterChainDefinitionMap.put("/invest", "anon");
 		filterChainDefinitionMap.put("/investment", "anon");
@@ -63,11 +66,6 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/getJinNangListMap","anon");
 		filterChainDefinitionMap.put("/getJinNangXinXi","anon");
 		filterChainDefinitionMap.put("/getCommentList","anon");
-
-		filterChainDefinitionMap.put("/","anon");
-
-
-
 		//配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
 		//<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;

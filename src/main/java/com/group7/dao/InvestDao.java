@@ -111,4 +111,12 @@ public interface InvestDao {
     int moneyCorporation(InvestmentAmount invest);
 
 
-    }
+    /**
+     * 查看贷款 还款信息
+     * @param loansId
+     * @return
+     */
+    List<Map> repaymentInformation(Integer loansId);
+
+
+}

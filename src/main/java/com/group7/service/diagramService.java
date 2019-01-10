@@ -10,24 +10,24 @@ public interface diagramService {
      * 获取12个月的贷款信息
      * @return
      */
-    List<Map> getDaikuan();
+    List<Map> getDaikuan(Map map);
 
     /**
      * 获取12个月的还款信息
      * @return
      */
-    List<Map> getHuankuan();
+    List<Map> getHuankuan(Map map);
 
     /**
      * 获取12个月充值信息
      * @return
      */
-    List<Map> getChongChi();
+    List<Map> getChongChi(Map map);
 
 
     /**
      * 获取12个月的提现信息
      * @return
      */
-    List<Map> getTiXian();
+    List<Map> getTiXian(Map map);
 }

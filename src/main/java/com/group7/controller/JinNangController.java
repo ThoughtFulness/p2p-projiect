@@ -104,33 +104,34 @@ public class JinNangController {
 
     @ResponseBody
     @RequestMapping("getSSCWXinXi")
-    public Object getSSCWXinXi(HttpServletRequest request){
+    public Object getSSCWXinXi(HttpServletRequest request,@RequestParam Map mapType){
         HttpSession session = request.getSession();
         String userName = (String)session.getAttribute("userSession");
         int id = jinNangService.getId(userName);//获取登陆人的id
-
+        mapType.put("id",id);
         //定义maps 用来存放投资信息
         Map touZiMap = new LinkedHashMap();
-        List<Map> charts = jinNangService.getTouZiCWFenXi(id);
+        List<Map> charts = jinNangService.getTouZiCWFenXi(mapType);
         for (Map map:charts) {
             if(map.get("MONEY")==null){
                 map.put("MONEY",0);
             }
-            touZiMap.put(map.get("YUEFEN"),map.get("MONEY"));
+            touZiMap.put(map.get("YUEFEN")+"月",map.get("MONEY"));
         }
 
         Map jieKuanMap = new LinkedHashMap();
-        List<Map> jieKuanCWFenXi = jinNangService.getJieKuanCWFenXi(id);
+        List<Map> jieKuanCWFenXi = jinNangService.getJieKuanCWFenXi(mapType);
         for (Map map:jieKuanCWFenXi) {
             if(map.get("MONEY")==null){
                 map.put("MONEY",0);
             }
-            jieKuanMap.put(map.get("YUEFEN"),map.get("MONEY"));
+
+            jieKuanMap.put(map.get("YUEFEN")+"月",map.get("MONEY"));
         }
 
 
         Map JieKuanMapLieXing = new LinkedHashMap();
-        List<Map> touZiMapLieXingList = jinNangService.getTouZiLieXingFenXi(id);
+        List<Map> touZiMapLieXingList = jinNangService.getTouZiLieXingFenXi(mapType);
         String LOANSTYPE="";
         for (Map map:touZiMapLieXingList) {
             if (map.get("LOANSTYPE")!=null&&map.get("LOANSTYPE")!=""){
@@ -147,7 +148,7 @@ public class JinNangController {
         }
 
         Map touZiMapLieXing = new LinkedHashMap();
-        List<Map> jieKuanCWFenXi1 = jinNangService.getJieKuanLieXingFenXi(id);
+        List<Map> jieKuanCWFenXi1 = jinNangService.getJieKuanLieXingFenXi(mapType);
         String LOANSTYPES="";
         for (Map map:jieKuanCWFenXi1) {
                 if (map.get("LOANSTYPE")!=null&&map.get("LOANSTYPE")!=""){

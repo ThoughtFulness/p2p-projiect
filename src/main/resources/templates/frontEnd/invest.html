@@ -25,26 +25,20 @@
 		    <a href="#"><img src="images/zxcf_sina.png" alt=""></a>
 		    <a href="#"><img src="images/zxcf_qq.png" alt=""></a>
 		 </div>
-		 <div class="zxcf_top_r fr">
-		 	<a href="login.html" class="curspan">立即登录</a>
-		 	<span>|</span>
-		 	<a href="register.html">免费注册</a>
-		 	<span>|</span>
-		 	<a href="problem.html">常见问题</a>
-		 </div>
+		<div class="zxcf_top_r fr">
+			<a href="/p2p/logout" class="curspan">立即登录</a>
+			<span>|</span>
+			<a href="/p2p/logout">切换用户</a>
+			<span>|</span>
+			<a href="/p2p/toproblem">常见问题</a>
+		</div>
 	</div>
 </div>
 <!-- end top -->
 <div class="zxcf_nav_wper">
 	<div class="zxcf_nav clearfix px1000">
 		 <div class="zxcf_nav_l fl"><img src="images/zxcf_logo.png" alt=""></div>
-		 <div class="zxcf_nav_r fr">
-		 	<img src="images/zxcf_perinfo.png" alt="">
-		 	<span>我的账户
-		 	<img src="images/zxcf_icon01.png" alt=""></span>
-		 	<ul class="zxcf_perinfo" style="display:none;">
-		 	</ul>
-		 </div>
+
 	</div>
 </div>
 <div class="zxcf_menu_wper">
@@ -184,6 +178,10 @@
 </body>
 <script>
 	$(function(){
+        var username = localStorage.getItem("userInfo");	 //获取当前登陆人 账户名
+        if(username!=null&&username!=''){
+            $(".curspan").html("注销登录")
+        }
 		 var tr = false;
           <!--获取 和 传值-->
           $(".select-list").on("click",".selected",function() {

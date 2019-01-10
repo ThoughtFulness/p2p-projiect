@@ -175,5 +175,15 @@ public class InvestServiceImpI implements InvestService {
         return investDao.moneyRecord(invest);
     }
 
+    /**
+     * 查看贷款 还款信息
+     * @param loansId
+     * @return
+     */
+    @Override
+    public List<Map> repaymentInformation(Integer loansId) {
+        return investDao.repaymentInformation(loansId);
+    }
+
 
 }

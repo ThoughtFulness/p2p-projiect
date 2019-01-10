@@ -454,7 +454,7 @@
                     'state':1                    //状态  1 为通过
                 };
                 axios.post('/p2p/loanReview', editForm).then(function (response) {
-                    alert(response.data)
+                    //alert(response.data)
                     if(response.data==1){
                         sweetAlert("操作成功！","贷款已经通过！", "success");
                     }else{
