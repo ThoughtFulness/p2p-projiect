@@ -657,17 +657,7 @@
                         $("#SJH").html(data.USERPHONE.slice(0,3)+"***********"); // 手机号
                         $("#SFZH").html(data.IDENTITYCARD.slice(0,6)+"***********"); //省份在号
                         $("#yongtu").html(data.LOANSUSED);    //融资用途
-                        $("#RZJE").html(data.LOANSMONEY+"元");  //融资金额
-                        if(Number(data.LOANSTYPE)==3){    //类型 和 贷款名称
-                            $("#LX").html("信用");
-                            $("#DKMC").html(data.USERNAME.slice(0,1)+"先生"+"发起的信用贷款");
-                        }else if(Number(data.LOANSTYPE)==2){
-                            $("#LX").html("抵押");
-                            $("#DKMC").html(data.USERNAME.slice(0,1)+"先生"+"发起的车辆抵押贷款");
-                        }else if(Number(data.LOANSTYPE)==1){
-                            $("#LX").html("抵押");
-                            $("#DKMC").html(data.USERNAME.slice(0,1)+"先生"+"发起的房屋抵押贷款");
-                        }
+
 
                         if(Number(data.LOANSTYPE)!=3){
 

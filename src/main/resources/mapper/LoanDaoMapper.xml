@@ -11,7 +11,7 @@
     </select>
     <!--查询是否该账户已经贷款-->
     <select id="selectloans" resultType="map">
-      select * from tb_loans where userid=(select id from tb_user where username=#{username}) and loansstate in(1,2,3,4,5,6,10,12)
+      select * from tb_loans where userid=(select id from tb_user where username=#{username}) and loansstate in(1,2,3,4,5,10,12)
     </select>
     <!--房屋抵押贷款-->
     <insert id="applyForLoad">
