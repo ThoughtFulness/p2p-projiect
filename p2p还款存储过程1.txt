@@ -1,0 +1,95 @@
+create or replace procedure beginrefund(refundinfo out varchar2)
+is
+ --贷款状态
+ v_state number;
+ --还款时间
+ v_tdate date;
+ --贷款ID
+ v_loansid number;
+ --贷款人ID
+ v_userid number;
+ --贷款金额
+ v_loansmoney number;
+ --定义一个游标，查询所有招标时间到期的未满标的贷款ID  
+ cursor csr_invest2 is select loansid,userid,loansmoney into v_loansid,v_userid,v_loansmoney from tb_loans where loansstate = 2 and investmentamount < loansmoney and (begintime+loancase)<sysdate;
+ t_csr_invest2 csr_invest2%rowtype;--定义行级变量
+ --定义一个游标，提前三天提醒贷款人还款    to_char(tdate-1,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') 获贷款 还款时间前一天的所有贷款id
+ cursor csr_invest1 is select loansid,to_char(tdate,'yyyy/mm/dd'),userid,loansmoney into v_loansid,v_tdate,v_userid,v_loansmoney from tb_loans where (to_char(tdate-1,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') or to_char(tdate-2,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') or to_char(tdate-3,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')) and loansstate=5;
+ t_csr_invest1 csr_invest1%rowtype;--定义行级变量
+ --定义一个游标,查询出所有还款时间到期的贷款ID
+ cursor csr_invest is select loansid from tb_loans where (to_char(tdate,'yyyy/mm/dd')=to_char(sysdate,'yyyy/mm/dd') or tdate<sysdate) and loansstate in (5,10);
+ t_csr_invest csr_invest%rowtype;--定义行级变量
+ update_exception exception;
+ 
+begin
+  
+      --打开游标  查询所有招标时间到期的未满标的贷款ID  
+      open csr_invest2;
+        --循环取数据
+        loop
+          --取一行数据
+          fetch csr_invest2 into t_csr_invest2;
+          --判断
+          exit when csr_invest2%notfound;
+          update tb_loans set loansstate = 3 where loansid = t_csr_invest2.loansid;
+          dbms_output.put_line(t_csr_invest2.userid||'111');
+           --给本次贷款人员发送的系统消息
+          insert into tb_message (messageid,messagecontent,sendtime,userid,messagetype)
+                 values(seq_tb_message_id.nextval,'尊敬的客户，您好,您的编号为'||t_csr_invest2.loansid||'的'||t_csr_invest2.loansmoney||'元贷款未满标，导致贷款流标。如有疑问，请联系我们，我们一定为您解答',sysdate,t_csr_invest2.userid,'流标');
+        end loop;
+        commit;
+        --refundinfo:='流标消息发送成功';
+      --关闭游标
+      close csr_invest2;   
+
+
+      --打开游标 提前三天提醒贷款人还款
+      open csr_invest1;
+        --循环取数据
+        loop
+          --取一行数据
+          fetch csr_invest1 into t_csr_invest1;
+          --判断
+          exit when csr_invest1%notfound;
+          dbms_output.put_line(t_csr_invest1.userid||'222');
+          --给本次贷款人员发送的系统消息
+          insert into tb_message (messageid,messagecontent,sendtime,userid,messagetype)
+                 values(seq_tb_message_id.nextval,'尊敬的客户，您好,您的编号为'||t_csr_invest1.loansid||'的'||t_csr_invest1.loansmoney||'元贷款将要在'||v_tdate||'还款，请保证您的账户中可用资金充足。如有疑问，请联系我们，我们一定为您解答',sysdate,t_csr_invest1.userid,'还款');
+        end loop;
+        commit;
+        --refundinfo:='消息发送成功';
+      --关闭游标
+      close csr_invest1;  
+
+      --打开游标  查询出所有换款时间到期的贷款ID
+      open csr_invest;
+        --循环取数据
+        loop
+          --取一行数据
+          fetch csr_invest into t_csr_invest;
+          --判断
+          exit when csr_invest%notfound;
+          --查询当前贷款的贷款状态
+          select loansstate into v_state from tb_loans where loansid=t_csr_invest.loansid;
+          dbms_output.put_line(t_csr_invest.loansid||'----');
+          dbms_output.put_line(v_state||'----');
+          if v_state = 5 then
+            --修改状态为还款中
+            update tb_loans set loansstate=4 where loansid=t_csr_invest.loansid;
+            get_investor_info(t_csr_invest.loansid,refundinfo);
+          elsif v_state=4 or v_state=10 then
+            get_investor_info(t_csr_invest.loansid,refundinfo);
+          end if;
+        end loop;
+        commit;
+      --关闭游标
+      close csr_invest;
+  exception
+   when no_data_found then
+     refundinfo:='不能还款';
+   when update_exception then
+     rollback;
+   when others then
+     refundinfo:='系统出错了';
+     rollback;
+ end;

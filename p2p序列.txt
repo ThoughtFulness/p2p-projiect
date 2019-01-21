@@ -1,0 +1,140 @@
+-- Create sequence 
+create sequence SEQ_TB_ACCOUNT_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 25
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_AUDITRECORD_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 75
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_CHARGE_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_COMMENT_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 63
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_INVESTMENT_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 276
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_JINNANG
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 82
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_LOANSTYPE_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_LOANS_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 190
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_MESSAGE_ID
+minvalue 1
+maxvalue 9999999
+start with 550
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_MONEYPOOL_ID
+minvalue 1
+maxvalue 999999999
+start with 335
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_MONEYRECORD_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 456
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_NOTICE_ID
+minvalue 5
+maxvalue 9999999999999999999999999
+start with 25
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_REFUND_ID
+minvalue 1
+maxvalue 99999999999
+start with 48
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_RESOURCES_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_ROLE_POWER_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 606
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_USERACCOUNT_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 91
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_USERINFORMATION_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 91
+increment by 1
+cache 20;
+
+create sequence SEQ_TB_USER_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 91
+increment by 1
+cache 20;
+
+create sequence SEQ_T_ROLE_ID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 50
+increment by 1
+cache 20;
+
+create sequence USERS1
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
